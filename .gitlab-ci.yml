@@ -18,10 +18,9 @@ build-image:
   stage: build
   rules:
     - if: $CI_COMMIT_TAG
-  before_script:
+  script:
     - export JAVA_VERSION=$(echo $CI_COMMIT_TAG | cut -d'-' -f1)
     - export LATEST_TAG=${JAVA_VERSION}-latest
-  script:
     - docker build --build-arg="OPEN_JDK_VERSION=${JAVA_VERSION}" --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG --tag $CI_REGISTRY_IMAGE:$LATEST_TAG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     - docker push $CI_REGISTRY_IMAGE:$LATEST_TAG
