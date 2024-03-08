@@ -7,11 +7,18 @@ RUN apt update && apt install wget curl git openjdk-${OPEN_JDK_VERSION}-jdk -y
 
 RUN pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple
 
+RUN useradd -m -U -d /home/container container
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
-EXPOSE 25565
+RUN chown container:container /entrypoint.sh
 
-RUN /usr/bin/mkdir /opt/minecraft
-VOLUME [ "/opt/minecraft" ]
+USER container
+ENV USER=container
+ENV HOME=/home/container
+
+RUN mkdir /home/container/minecraft
+
+WORKDIR /home/container/minecraft
 
 ENTRYPOINT [ "bash", "/entrypoint.sh" ]
