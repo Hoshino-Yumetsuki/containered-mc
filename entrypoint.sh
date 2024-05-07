@@ -1,16 +1,20 @@
 #! /bin/bash
 
-if [ "$(ls -A /opt/minecraft)" ]; then
-    echo "Directory is not empty, skipping..."
-
-else
-    echo "Directory is empty, installing MCDReforged..."
+if [ "$INSTALL_MCDR" = "true" ] || [ -z "$(ls -A /opt/minecraft)" ]; then
+    echo "Installing MCDReforged..."
     cd /opt/minecraft
     python -m venv venv
     source /opt/minecraft/venv/bin/activate
     pip install mcdreforged
     python -m mcdreforged init
     deactivate
+else
+    echo "Directory is not empty, skipping installation..."
+fi
+
+if [ ! -d "/opt/minecraft/venv" ]; then
+    echo "Venv is not exist, please check the installation..."
+    exit 1
 fi
 
 cd /opt/minecraft
