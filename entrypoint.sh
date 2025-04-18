@@ -1,29 +1,35 @@
-#! /bin/bash
+#!/bin/bash
+set -e
 
-if [ "$INSTALL_MCDR" = "true" ] || [ -z "$(ls -A /opt/minecraft)" ]; then
-    echo "Installing MCDReforged..."
-    cd /opt/minecraft
-    python -m venv venv
-    source /opt/minecraft/venv/bin/activate
-    pip install mcdreforged
-    python -m mcdreforged init
-    deactivate
+# Function to install Python dependencies using uv
+install_python_deps() {
+    if [ -f "$1" ]; then
+        echo "Installing Python dependencies from $1 using uv..."
+        uv pip install -r "$1"
+    fi
+}
+
+# Check for dependencies in /data directory
+if [ -f "/data/requirements.txt" ]; then
+    echo "Found requirements.txt in /data directory"
+    install_python_deps "/data/requirements.txt"
+fi
+
+# Check for additional requirements
+if [ -f "/data/requirements.txt" ]; then
+    echo "Installing requirements from /data/requirements.txt..."
+    uv pip install -r /data/requirements.txt
+fi
+
+# Change to Minecraft working directory
+cd /data
+
+# Check for custom command
+if [ -n "$CUSTOM_COMMAND" ]; then
+    echo "Running custom command: $CUSTOM_COMMAND"
+    eval "$CUSTOM_COMMAND"
 else
-    echo "Directory is not empty, skipping installation..."
+    # Start MCDReforged
+    echo "Starting MCDReforged in /data directory"
+    python -m mcdreforged
 fi
-
-if [ ! -d "/opt/minecraft/venv" ]; then
-    echo "Venv is not exist, please check the installation..."
-    exit 1
-fi
-
-cd /opt/minecraft
-source /opt/minecraft/venv/bin/activate
-pip install -U mcdreforged
-
-if [ -f "/opt/minecraft/requirements.txt" ]; then
-    echo "Installing requirements..."
-    pip install -r requirements.txt
-fi
-
-python -m mcdreforged
