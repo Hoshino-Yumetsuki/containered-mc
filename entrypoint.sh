@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+# Configure UV_DEFAULT_INDEX based on PYPI_URL if not set
+if [ -z "$UV_DEFAULT_INDEX" ]; then
+    echo "UV_DEFAULT_INDEX not set, using PYPI_URL: $PYPI_URL"
+    export UV_DEFAULT_INDEX="$PYPI_URL"
+else
+    echo "Using UV_DEFAULT_INDEX: $UV_DEFAULT_INDEX"
+fi
+
 # Function to install Python dependencies using uv
 install_python_deps() {
     if [ -f "$1" ]; then

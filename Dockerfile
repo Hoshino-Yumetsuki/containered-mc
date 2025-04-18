@@ -76,6 +76,8 @@ EXPOSE 25565
 ENV INSTALL_MCDR=false
 ENV CUSTOM_COMMAND=""
 ENV UV_LINK_MODE=copy
+ENV UV_DEFAULT_INDEX=""
+ENV PYPI_URL="https://pypi.org/simple"
 
 WORKDIR /data
 ENTRYPOINT [ "bash", "/entrypoint.sh" ]
