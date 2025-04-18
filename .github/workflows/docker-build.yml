@@ -42,8 +42,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=${{ matrix.java-version }}-latest
-            type=raw,value=${{ matrix.java-version }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=raw,value=jdk-${{ matrix.java-version }}-latest
+            type=raw,value=jdk-${{ matrix.java-version }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -82,7 +82,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest
+            type=raw,value=jdk-latest
 
       - name: Build and push Docker image with default Java version
         uses: docker/build-push-action@v5
