@@ -23,15 +23,14 @@ RUN apt-get update && apt-get upgrade -y && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Add deadsnakes PPA for Python versions
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
+# Install Python and related packages from Ubuntu repositories
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    python${PYTHON_VERSION} \
-    python${PYTHON_VERSION}-dev \
-    python${PYTHON_VERSION}-distutils \
+    python3 \
+    python3-dev \
     python3-pip \
     python3-venv \
+    python-is-python3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -45,10 +44,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Set up Python symlinks
-RUN ln -fs /usr/bin/python${PYTHON_VERSION} /usr/bin/python3 && \
-    ln -fs /usr/bin/python3 /usr/bin/python && \
-    ln -fs /usr/bin/pip3 /usr/bin/pip
+# Set up pip symlink
+RUN ln -fs /usr/bin/pip3 /usr/bin/pip
 
 # Set pip config
 RUN pip config set global.index-url ${PYPI_URL}
