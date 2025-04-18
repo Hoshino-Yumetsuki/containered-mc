@@ -11,6 +11,11 @@ on:
         type: boolean
         default: true
 
+# Add permissions for GitHub Container Registry
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-matrix:
     runs-on: ubuntu-latest
