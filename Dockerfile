@@ -57,9 +57,6 @@ RUN mkdir -p /data
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 
-# Create minecraft directory
-RUN mkdir -p /opt/minecraft
-
 # Define volumes
 VOLUME [ "/data" ]
 
