@@ -51,10 +51,10 @@ RUN ln -fs /usr/bin/pip3 /usr/bin/pip
 RUN pip config set global.index-url ${PYPI_URL}
 
 # Install uv for faster Python package installation
-RUN pip install uv
+RUN pip install --break-system-packages uv
 
 # Install MCDReforged
-RUN uv pip install --system -U mcdreforged
+RUN uv pip install --system --break-system-packages -U mcdreforged
 
 # Create data directory (main Minecraft working directory)
 RUN mkdir -p /data
