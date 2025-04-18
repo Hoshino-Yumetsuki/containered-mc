@@ -5,7 +5,7 @@ set -e
 install_python_deps() {
     if [ -f "$1" ]; then
         echo "Installing Python dependencies from $1 using uv..."
-        uv pip install -r "$1"
+        uv pip install --system -r "$1"
     fi
 }
 
@@ -18,7 +18,7 @@ fi
 # Check for additional requirements
 if [ -f "/data/requirements.txt" ]; then
     echo "Installing requirements from /data/requirements.txt..."
-    uv pip install -r /data/requirements.txt
+    uv pip install --system -r /data/requirements.txt
 fi
 
 # Change to Minecraft working directory

@@ -57,7 +57,7 @@ RUN pip config set global.index-url ${PYPI_URL}
 RUN pip install uv
 
 # Install MCDReforged
-RUN uv pip install -U mcdreforged
+RUN uv pip install --system -U mcdreforged
 
 # Create data directory (main Minecraft working directory)
 RUN mkdir -p /data
