@@ -5,10 +5,6 @@ ARG OPEN_JDK_VERSION=21
 ARG PYTHON_VERSION=3.11
 ARG PYPI_URL=https://pypi.org/simple
 
-# Set timezone
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # Update and install essential packages
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
@@ -70,8 +66,6 @@ VOLUME [ "/data" ]
 EXPOSE 25565
 
 # Set environment variables
-ENV INSTALL_MCDR=false
-ENV CUSTOM_COMMAND=""
 ENV UV_LINK_MODE=copy
 ENV UV_DEFAULT_INDEX=""
 ENV PYPI_URL="https://pypi.org/simple"
