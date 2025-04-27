@@ -69,6 +69,7 @@ EXPOSE 25565
 ENV UV_LINK_MODE=copy
 ENV UV_DEFAULT_INDEX=""
 ENV PYPI_URL="https://pypi.org/simple"
+ENV CUSTOM_COMMAND=""
 
 WORKDIR /workspace
 ENTRYPOINT [ "bash", "/entrypoint.sh" ]

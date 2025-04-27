@@ -18,6 +18,12 @@ fi
 # Change to Minecraft working directory
 cd /workspace
 
-# Start MCDReforged
-echo "Starting MCDReforged in /workspace directory"
-exec python -m mcdreforged
+# Check if custom command is provided
+if [ -n "$CUSTOM_COMMAND" ]; then
+    echo "Using custom command: $CUSTOM_COMMAND"
+    exec $CUSTOM_COMMAND
+else
+    # Start MCDReforged with default command
+    echo "Starting MCDReforged in /workspace directory"
+    exec python -m mcdreforged
+fi
