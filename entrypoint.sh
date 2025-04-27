@@ -10,14 +10,14 @@ else
 fi
 
 # Install Python dependencies if found in mounted volume
-if [ -f "/data/requirements.txt" ]; then
-    echo "Installing Python dependencies from /data/requirements.txt using uv..."
-    uv pip install --system --break-system-packages -r "/data/requirements.txt"
+if [ -f "/workspace/requirements.txt" ]; then
+    echo "Installing Python dependencies from /workspace/requirements.txt using uv..."
+    uv pip install --system --break-system-packages -r "/workspace/requirements.txt"
 fi
 
 # Change to Minecraft working directory
-cd /data
+cd /workspace
 
 # Start MCDReforged
-echo "Starting MCDReforged in /data directory"
+echo "Starting MCDReforged in /workspace directory"
 exec python -m mcdreforged

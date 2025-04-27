@@ -52,15 +52,15 @@ RUN pip install --break-system-packages uv
 # Install MCDReforged
 RUN uv pip install --system --break-system-packages -U mcdreforged
 
-# Create data directory (main Minecraft working directory)
-RUN mkdir -p /data
+# Create workspace directory (main Minecraft working directory)
+RUN mkdir -p /workspace
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 
 # Define volumes
-VOLUME [ "/data" ]
+VOLUME [ "/workspace" ]
 
 # Expose Minecraft port
 EXPOSE 25565
@@ -70,5 +70,5 @@ ENV UV_LINK_MODE=copy
 ENV UV_DEFAULT_INDEX=""
 ENV PYPI_URL="https://pypi.org/simple"
 
-WORKDIR /data
+WORKDIR /workspace
 ENTRYPOINT [ "bash", "/entrypoint.sh" ]
